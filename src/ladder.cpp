@@ -11,6 +11,8 @@ bool edit_distance_within(const std::string& str1, const std::string& str2, int 
     size_t len1 = str1.length();
     size_t len2 = str2.length();
 
+    if (str1 == str2) return true;
+
     if (abs(static_cast<int>(len1 - len2)) > 1) return false;
 
     if (len1 != len2){

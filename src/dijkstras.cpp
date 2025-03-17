@@ -5,7 +5,7 @@
 
 vector<int> dijkstra_shortest_path(const Graph& G, int source, vector<int>& previous){
     if (G.empty() || source < 0 || source >= static_cast<int>(G.size())) {
-        return vector<int>();  // Return empty vector for invalid cases
+        return vector<int>();  
     }
     
     int numVertices = G.size();
@@ -38,21 +38,29 @@ vector<int> dijkstra_shortest_path(const Graph& G, int source, vector<int>& prev
     }
     return distances;
 }
-vector<int> extract_shortest_path(const vector<int>& /*distances*/, const vector<int>& previous, int destination){
+vector<int> extract_shortest_path(const vector<int>& distances, const vector<int>& previous, int destination){
     vector<int> path;
-    int current = destination;
+    if (distances.empty() || destination < 0 || destination >= static_cast<int>(distances.size())) {
+            return path;
+        }
 
+    int current = destination;
     while (current != -1){
         path.push_back(current);
         current = previous[current];
     }
+    reverse(path.begin(), path.end());
     return path;
 }
 void print_path(const vector<int>& v, int total){
-    cout << "Path: ";
-    for(int i = v.size() - 1; i >= 0; --i){
-        cout << v[i];
-        if (i > 0) cout << " -> ";
+    if (v.empty()) {
+        cout << "\nTotal cost is " << total << "\n";
+        return;
     }
-    cout << "\nTotal distance: " << total << endl;
+    for(size_t i = 0; i < v.size() ; i++){
+        cout << v[i];
+        if (i < v.size() - 1)
+            cout << " ";
+    }
+    cout << "\nTotal cost is " << total << "\n";
 }
