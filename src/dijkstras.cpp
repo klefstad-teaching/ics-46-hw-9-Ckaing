@@ -4,6 +4,10 @@
 
 
 vector<int> dijkstra_shortest_path(const Graph& G, int source, vector<int>& previous){
+    if (G.empty() || source < 0 || source >= static_cast<int>(G.size())) {
+        return vector<int>();  // Return empty vector for invalid cases
+    }
+    
     int numVertices = G.size();
     vector<int> distances(numVertices, INF);
     vector<bool> visited(numVertices, false);
